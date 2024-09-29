@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Formulario de Servicio Programado</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Solicitar Servicio Programado</h1>
+        <form id="serviceForm" action="https://script.google.com/macros/s/AKfycbw1kIrxBfpizQdDi6rILHh6GZ7uek0JsONsLfiNLbBW6sQ8HFQgfRW_Jo00AfsDccPI5A/exec" method="post">
+            <label for="timestamp">Hora y Fecha (de registro):</label>
+            <input type="text" id="timestamp" name="timestamp" readonly>
+
+            <label for="fullname">Nombre Completo:</label>
+            <input type="text" id="fullname" name="fullname" maxlength="50" required>
+
+            <label for="phone">Número Telefónico (sin espacios y con servicio de WhatsApp):</label>
+            <input type="tel" id="phone" name="phone" maxlength="10" placeholder="7771234567" required>
+
+            <label for="serviceDate">Fecha a Programar el Servicio:</label>
+            <input type="date" id="serviceDate" name="serviceDate" required>
+
+            <label for="serviceTime">Hora a Programar el Servicio:</label>
+            <input type="time" id="serviceTime" name="serviceTime" required>
+
+            <label for="location">Ubicación (dirección o referencias):</label>
+            <input type="text" id="location" name="location" maxlength="100" required>
+
+            <label for="destination">Destino (referencias):</label>
+            <input type="text" id="destination" name="destination" maxlength="100" required>
+
+            <label for="details">Detalles del Servicio (ej. llevaré varias maletas):</label>
+            <input type="text" id="details" name="details" maxlength="100" required>
+
+            <label for="geolocation">Geolocalización (haz clic en el botón [Obtener Geolocalización]):</label>
+            <input type="text" id="geolocation" name="geolocation" readonly>
+
+            <button type="button" onclick="getGeolocation()">Obtener Geolocalización</button>
+
+            <div class="button-group">
+                <button type="button" onclick="window.location.href='https://sites.google.com/view/rtaxi-coral/inicio'">Inicio</button>
+                <button type="submit" id="submitButton" disabled>Enviar</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
