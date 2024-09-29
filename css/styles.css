@@ -1,0 +1,114 @@
+form {
+    display: flex;
+    flex-direction: column; /* Colocar los elementos en una columna */
+    align-items: center; /* Centrar los elementos horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
+    margin-top: 40px; /* Mover el formulario hacia abajo */
+    width: 100%;
+}
+
+/* Estilo general de los inputs */
+input[type="text"], input[type="tel"], input[type="date"], input[type="time"], textarea {
+    width: 80%; /* Hacer los inputs más anchos */
+    max-width: 500px; /* Limitar el ancho máximo */
+    padding: 10px; /* Espaciado interno */
+    margin: 10px 0; /* Espaciado entre los campos */
+    border: 1px solid #ccc; /* Borde estándar */
+    border-radius: 5px; /* Bordes redondeados */
+    box-sizing: border-box; /* Asegura que el padding esté dentro del tamaño del elemento */
+    font-size: 16px; /* Tamaño de fuente adecuado */
+    text-align: left; /* Texto alineado a la izquierda dentro de los inputs */
+    /* Se elimina cualquier otra alineación que pudiera interferir */
+}
+
+/* Estilo para el título */
+h1 {
+    text-align: center;
+    margin-bottom: 30px; /* Separar el título del formulario */
+    margin-top: 30px; /* Mover el título más abajo */
+    color: green; /* Color verde para el título */
+    font-size: 28px; /* Tamaño del texto del título */
+    font-family: 'Arial', sans-serif; /* Fuente simple y clara */
+}
+
+/* Aplica el color de fondo azul a los campos llenos */
+input.filled {
+    background-color: #c4f3da; /* Color azul claro */
+}
+
+/* Puedes cambiar otros estilos si quieres */
+input {
+    transition: background-color 0.3s ease;
+}
+
+
+
+/* Estilo para las etiquetas */
+label {
+    font-size: 16px; /* Tamaño de letra consistente */
+    margin-bottom: 5px; /* Separar la etiqueta del input */
+    color: #333; /* Color oscuro para visibilidad */
+    text-align: left; /* Alinear las etiquetas a la izquierda */
+    width: 80%;
+    max-width: 500px;
+}
+
+/* Botones estilizados */
+button {
+    margin: 10px; /* Separación entre los botones */
+    padding: 10px 20px; /* Relleno dentro de los botones */
+    font-size: 16px; /* Tamaño de fuente adecuado */
+    background-color: #4CAF50; /* Color verde para los botones activos */
+    color: white; /* Texto blanco en los botones */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+    transition: background-color 0.3s ease; /* Animación de transición */
+}
+
+/* Cambiar color al pasar el cursor por el botón */
+button:hover {
+    background-color: #45a049; /* Color más oscuro al pasar sobre el botón */
+}
+
+/* Botón deshabilitado */
+button:disabled {
+    background-color: #ccc; /* Color gris para el botón deshabilitado */
+    cursor: not-allowed; /* Cambiar el cursor para mostrar que no es clickeable */
+}
+
+/* Estilo para los mensajes de error (validación de campos) */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    width: 80%;
+    max-width: 500px;
+    text-align: left;
+}
+
+/* Alineación del botón "Enviar" */
+#enviar-btn {
+    background-color: #008CBA; /* Azul para el botón enviar */
+}
+
+#enviar-btn:hover {
+    background-color: #007bb5; /* Azul más oscuro al hacer hover */
+}
+
+/* Ajustes para campos de geolocalización y mensaje en WhatsApp */
+input#geolocalizacion {
+    text-transform: none; /* Permitir caracteres especiales en el campo de geolocalización */
+}
+
+/* Ajustes para caracteres especiales en los mensajes de WhatsApp */
+textarea {
+    text-transform: none; /* Permitir que caracteres como # o " no se transformen */
+    text-align: left; /* Mantener texto alineado a la izquierda */
+}
+
+/* Margen de seguridad inferior para evitar que el formulario esté muy pegado al pie de página */
+body {
+    padding-bottom: 50px;
+}
