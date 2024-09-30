@@ -46,6 +46,18 @@
         </form>
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          var now = new Date();
+          var formattedDate = now.getFullYear() + '-' + 
+                              String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                              String(now.getDate()).padStart(2, '0') + ' ' +
+                              String(now.getHours()).padStart(2, '0') + ':' +
+                              String(now.getMinutes()).padStart(2, '0');
+          document.getElementById("timestamp").value = formattedDate;
+        });
+      </script>
+
     <script src="js/script.js"></script>
 </body>
 </html>
