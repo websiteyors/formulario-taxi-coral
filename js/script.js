@@ -110,13 +110,24 @@ document.getElementById('details').addEventListener('input', function () {
     }
 });
 
-// Mensaje al enviar el formulario y redirección
+// Función para enviar el formulario a Google Sheets mediante AJAX
 document.getElementById('serviceForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    alert("Formulario enviado correctamente.");
-    
-    // Redirigir a la página principal después de 2 segundos
-    setTimeout(function() {
-        window.location.href = 'https://sites.google.com/view/rtaxi-coral/inicio';
-    }, 2000); // Esperar 2 segundos antes de redirigir
+    e.preventDefault(); // Evitar la recarga de la página
+    const formData = new FormData(this);
+    fetch(this.action, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+        alert("Formulario enviado correctamente.");
+        // Redirigir a la página principal después de 2 segundos
+        setTimeout(function() {
+            window.location.href = 'https://sites.google.com/view/rtaxi-coral/inicio';
+        }, 2000);
+    })
+    .catch(error => {
+        console.error('Error al enviar el formulario:', error);
+        alert("Hubo un problema al enviar el formulario. Intenta nuevamente.");
+    });
 });
