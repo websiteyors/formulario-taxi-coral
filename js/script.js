@@ -1,7 +1,7 @@
-// Selecciona todos los campos de entrada (puedes ajustar para seleccionar solo los que te interesen)
+// Selecciona todos los campos de entrada
 const inputs = document.querySelectorAll('input, textarea');
 
-// Función que añade la clase 'filled' cuando el campo está lleno
+// Añade la clase 'filled' cuando el campo está lleno
 inputs.forEach(input => {
     input.addEventListener('input', function() {
         if (input.value.trim() !== '') {
@@ -9,13 +9,25 @@ inputs.forEach(input => {
         } else {
             input.classList.remove('filled');
         }
-        checkFormCompletion(); // Verificar si todos los campos están completos después de cada cambio
+        checkFormCompletion();
     });
 });
 
+// Función para formatear la fecha y hora en texto plano
+function formatDateTime(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses comienzan en 0
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
 // Establece la fecha y hora actual en el campo de timestamp cuando se carga la página
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('timestamp').value = new Date().toLocaleString();
+    const timestampField = document.getElementById('timestamp');
+    const currentDateTime = new Date();
+    timestampField.value = formatDateTime(currentDateTime); // Fecha y hora en formato de texto
 });
 
 // Geolocalización
@@ -29,9 +41,9 @@ function getGeolocation() {
                 const lon = position.coords.longitude;
                 const geolocationLink = `https://www.google.com/maps?q=${lat},${lon}`;
                 geoLocationField.value = geolocationLink;
-                geoLocationField.classList.add('filled'); // Marca como "filled" cuando se completa
+                geoLocationField.classList.add('filled'); 
                 alert("Geolocalización obtenida correctamente.");
-                checkFormCompletion(); // Verificar si todos los campos están completos
+                checkFormCompletion();
             },
             (error) => {
                 switch (error.code) {
@@ -67,7 +79,7 @@ function checkFormCompletion() {
     const allFilled = formFields.every(field => document.getElementById(field).value.trim() !== '');
     document.getElementById('submitButton').disabled = !allFilled;
 
-    // Opcional: resaltar campos vacíos
+    // Resaltar campos vacíos
     formFields.forEach(field => {
         const inputElement = document.getElementById(field);
         if (inputElement.value.trim() === '') {
@@ -78,42 +90,28 @@ function checkFormCompletion() {
     });
 }
 
-// Validación para el campo de teléfono (máximo 10 dígitos)
+// Validación de longitud para el campo de teléfono
 document.getElementById('phone').addEventListener('input', function () {
     if (this.value.length > 10) {
-        this.value = this.value.substring(0, 10); // Limita a 10 dígitos
+        this.value = this.value.substring(0, 10); 
     }
 });
 
-// Validación de longitud máxima para otros campos
-document.getElementById('fullname').addEventListener('input', function () {
-    if (this.value.length > 50) {
-        this.value = this.value.substring(0, 50); // Limita a 50 caracteres
-    }
+// Validación de longitud para otros campos
+['fullname', 'location', 'destination', 'details'].forEach(id => {
+    document.getElementById(id).addEventListener('input', function () {
+        if (this.value.length > 100) {
+            this.value = this.value.substring(0, 100); 
+        }
+    });
 });
 
-document.getElementById('location').addEventListener('input', function () {
-    if (this.value.length > 100) {
-        this.value = this.value.substring(0, 100); // Limita a 100 caracteres
-    }
-});
-
-document.getElementById('destination').addEventListener('input', function () {
-    if (this.value.length > 100) {
-        this.value = this.value.substring(0, 100); // Limita a 100 caracteres
-    }
-});
-
-document.getElementById('details').addEventListener('input', function () {
-    if (this.value.length > 100) {
-        this.value = this.value.substring(0, 100); // Limita a 100 caracteres
-    }
-});
-
-// Función para enviar el formulario a Google Sheets mediante AJAX
+// Envío del formulario usando AJAX
 document.getElementById('serviceForm').addEventListener('submit', function (e) {
-    e.preventDefault(); // Evitar la recarga de la página
+    e.preventDefault();
     const formData = new FormData(this);
+    formData.append('timestamp', formatDateTime(new Date())); // Añadir timestamp formateado
+    
     fetch(this.action, {
         method: 'POST',
         body: formData
@@ -121,7 +119,6 @@ document.getElementById('serviceForm').addEventListener('submit', function (e) {
     .then(response => response.text())
     .then(result => {
         alert("Formulario enviado correctamente.");
-        // Redirigir a la página principal después de 2 segundos
         setTimeout(function() {
             window.location.href = 'https://sites.google.com/view/rtaxi-coral/inicio';
         }, 2000);
