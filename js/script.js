@@ -106,7 +106,14 @@ document.getElementById('phone').addEventListener('input', function () {
     });
 });
 
-// Función para convertir la hora a formato de 12 horas con a.m./p.m. y en texto plano
+// Función para convertir la fecha a formato largo
+function convertirFechaLarga(fechaISO) {
+    const fecha = new Date(fechaISO);
+    const opcionesFormatoLargo = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return fecha.toLocaleDateString('es-MX', opcionesFormatoLargo);
+}
+
+// Función para convertir la hora a formato de 12 horas con a.m./p.m.
 function convertirHora12Horas(horaISO) {
     const partesHora = horaISO.split(':');
     let horas = parseInt(partesHora[0], 10);
@@ -119,7 +126,7 @@ function convertirHora12Horas(horaISO) {
         horas = 12; // Medianoche
     }
 
-    return horas + ':' + minutos + ' ' + periodo; // Devuelve la hora en formato de texto
+    return horas + ':' + minutos + ' ' + periodo;
 }
 
 // Envío del formulario usando AJAX
@@ -132,12 +139,12 @@ document.getElementById('serviceForm').addEventListener('submit', function (e) {
     const horaProgramada = formData.get('serviceTime');
     
     // Convertir la fecha y la hora antes de enviarlas
-    const fechaLarga = convertirFechaLarga(fechaProgramada); // Mantener el formato de fecha
-    const hora12 = convertirHora12Horas(horaProgramada); // Convertir a formato de texto
+    const fechaLarga = convertirFechaLarga(fechaProgramada);
+    const hora12 = convertirHora12Horas(horaProgramada);
     
     // Reemplazar los valores formateados en el formData
     formData.set('serviceDate', fechaLarga);
-    formData.set('serviceTime', hora12);
+    formData.set('serviceTime', hora12); // Mantiene el formato de texto
     
     fetch(this.action, {
         method: 'POST',
