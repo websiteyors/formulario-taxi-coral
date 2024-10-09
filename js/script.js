@@ -113,39 +113,34 @@ function convertirFechaLarga(fechaISO) {
     return fecha.toLocaleDateString('es-MX', opcionesFormatoLargo);
 }
 
-// Función para convertir la hora a formato de 12 horas con a.m./p.m.
-function convertirHora12Horas(horaISO) {
-    const partesHora = horaISO.split(':');
-    let horas = parseInt(partesHora[0], 10);
-    const minutos = partesHora[1];
-    const periodo = horas >= 12 ? 'p.m.' : 'a.m.';
+// Función para convertir la hora a formato de 12 horas con a.m./p.m. y asegurar que sea texto plano
+function convertirHora12Horas(horaTexto) {
+    var partesHora = horaTexto.split(':');
+    var horas = parseInt(partesHora[0]);
+    var minutos = parseInt(partesHora[1]);
+    var periodo = 'a.m.';
 
-    if (horas > 12) {
-        horas -= 12;
+    if (horas >= 12) {
+        periodo = 'p.m.';
+        if (horas > 12) {
+            horas -= 12; // Convertir a formato de 12 horas
+        }
     } else if (horas === 0) {
         horas = 12; // Medianoche
     }
 
-    return horas + ':' + minutos + ' ' + periodo;
+    // Asegurar que la hora se registre en formato texto plano
+    return ('0' + horas).slice(-2) + ':' + ('0' + minutos).slice(-2) + ' ' + periodo;
 }
 
-// Envío del formulario usando AJAX
+// Ajustar el campo del horario a texto plano en el envío del mensaje de WhatsApp
 document.getElementById('serviceForm').addEventListener('submit', function (e) {
     e.preventDefault();
     const formData = new FormData(this);
     
-    // Obtener fecha y hora programada del formulario
-    const fechaProgramada = formData.get('serviceDate');
-    const horaProgramada = formData.get('serviceTime');
-    
-    // Convertir la fecha y la hora antes de enviarlas
-    const fechaLarga = convertirFechaLarga(fechaProgramada);
-    const hora12 = convertirHora12Horas(horaProgramada);
-    
-    // Reemplazar los valores formateados en el formData
-    formData.set('serviceDate', fechaLarga);
-    formData.set('serviceTime', hora12);
-    
+    const horaFormateada = convertirHora12Horas(document.getElementById('serviceTime').value); 
+    formData.append('serviceTime', horaFormateada); // Añadir la hora en formato 12h
+
     fetch(this.action, {
         method: 'POST',
         body: formData
