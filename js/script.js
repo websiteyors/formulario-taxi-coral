@@ -144,7 +144,7 @@ document.getElementById('serviceForm').addEventListener('submit', function (e) {
     
     // Reemplazar los valores formateados en el formData
     formData.set('serviceDate', fechaLarga);
-    formData.set('serviceTime', hora12); // Mantiene el formato de texto
+    formData.set('serviceTime', hora12);
     
     fetch(this.action, {
         method: 'POST',
