@@ -106,10 +106,10 @@ document.getElementById('phone').addEventListener('input', function () {
     });
 });
 
-// Función para convertir la fecha a formato largo
 function convertirFechaLarga(fechaISO) {
-    const fecha = new Date(fechaISO);
+    const [year, month, day] = fechaISO.split('-');
     const opcionesFormatoLargo = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const fecha = new Date(year, month - 1, day);
     return fecha.toLocaleDateString('es-MX', opcionesFormatoLargo);
 }
 
