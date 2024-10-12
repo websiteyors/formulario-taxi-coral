@@ -37,13 +37,20 @@ function getGeolocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
+                const lat = position.coords.latitude.toFixed(6); // Limitar a 6 decimales
+                const lon = position.coords.longitude.toFixed(6); // Limitar a 6 decimales
                 const geolocationLink = `https://www.google.com/maps?q=${lat},${lon}`;
-                geoLocationField.value = geolocationLink;
-                geoLocationField.classList.add('filled'); 
-                alert("Geolocalización obtenida correctamente.");
-                checkFormCompletion();
+                
+                // Verificación de enlace generado
+                if (geolocationLink.includes('NaN')) {
+                    alert("Error en la generación de la geolocalización.");
+                } else {
+                    geoLocationField.value = geolocationLink;
+                    geoLocationField.classList.add('filled'); 
+                    alert("Geolocalización obtenida correctamente.");
+                }
+                
+                checkFormCompletion(); // Verificar si el formulario está completo
             },
             (error) => {
                 switch (error.code) {
@@ -66,6 +73,7 @@ function getGeolocation() {
         alert("Tu navegador no soporta geolocalización.");
     }
 }
+
 
 // Verificar la completitud del formulario
 const formFields = ['fullname', 'phone', 'serviceDate', 'serviceTime', 'location', 'destination', 'details', 'geolocation'];
