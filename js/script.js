@@ -37,19 +37,20 @@ function getGeolocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                const lat = position.coords.latitude.toFixed(6); // Limitar a 6 decimales
-                const lon = position.coords.longitude.toFixed(6); // Limitar a 6 decimales
+                // Limitar las coordenadas a 4 decimales
+                const lat = position.coords.latitude.toFixed(4); 
+                const lon = position.coords.longitude.toFixed(4); 
                 const geolocationLink = `https://www.google.com/maps?q=${lat},${lon}`;
                 
-                // Verificación de enlace generado
-                if (geolocationLink.includes('NaN')) {
-                    alert("Error en la generación de la geolocalización.");
-                } else {
-                    geoLocationField.value = geolocationLink;
-                    geoLocationField.classList.add('filled'); 
-                    alert("Geolocalización obtenida correctamente.");
-                }
+                // Mostrar la URL en consola o con un alert para ver si es correcta
+                console.log("Generated Google Maps URL: ", geolocationLink);
+                alert("Generated Google Maps URL: " + geolocationLink); // Esto es temporal para ver la URL
                 
+                // Asignar la URL generada al campo de geolocalización
+                geoLocationField.value = geolocationLink;
+                geoLocationField.classList.add('filled'); 
+                
+                alert("Geolocalización obtenida correctamente.");
                 checkFormCompletion(); // Verificar si el formulario está completo
             },
             (error) => {
