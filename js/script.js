@@ -161,24 +161,24 @@ document.getElementById('serviceForm').addEventListener('submit', function (e) {
     .then(result => {
         alert("Formulario enviado correctamente.");
 
-// Envío del correo electrónico con EmailJS
-emailjs.send("service_5mqrv4f", "template_s5xe1ad", {
-    fullname: formData.get('fullname'),
-    phone: formData.get('phone'),
-    serviceDate: fechaLarga,
-    serviceTime: hora12,
-    location: formData.get('location'),
-    destination: formData.get('destination'),
-    details: formData.get('details'),
-    geolocation: formData.get('geolocation'),
-    to_email: "reyesgama@gmail.com" // Dirección de destino del correo
-})
-.then(function(response) {
-    console.log('Correo enviado con éxito', response.status, response.text);
-}, function(error) {
-    console.error('Error al enviar el correo:', error);
-});
-
+        console.log('Enviando correo a:', formData.get('fullname'), 'con email:', "reyesgama@gmail.com");
+        emailjs.send("service_5mqrv4f", "template_s5xe1ad", {
+            fullname: formData.get('fullname'),
+            phone: formData.get('phone'),
+            serviceDate: fechaLarga,
+            serviceTime: hora12,
+            location: formData.get('location'),
+            destination: formData.get('destination'),
+            details: formData.get('details'),
+            geolocation: formData.get('geolocation'),
+            to_email: "reyesgama@gmail.com" // Dirección de destino del correo
+        })
+        .then(function(response) {
+            console.log('Correo enviado con éxito', response.status, response.text);
+        }, function(error) {
+            console.error('Error al enviar el correo:', error);
+        });
+        
         // Redirigir después de enviar
         setTimeout(function() {
             window.location.href = 'https://sites.google.com/view/rtaxi-coral/inicio';
