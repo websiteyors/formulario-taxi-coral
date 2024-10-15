@@ -161,7 +161,7 @@ document.getElementById('serviceForm').addEventListener('submit', function (e) {
     .then(result => {
         alert("Formulario enviado correctamente.");
 
-        console.log('Enviando correo a:', formData.get('fullname'), 'con email:', "reyesgama@gmail.com");
+        console.log('Enviando correo a:', formData.get('fullname'), 'con email:', "websiteyors@gmail.com");
         emailjs.send("service_5mqrv4f", "template_s5xe1ad", {
             fullname: formData.get('fullname'),
             phone: formData.get('phone'),
