@@ -42,16 +42,14 @@ function getGeolocation() {
                 const lon = position.coords.longitude.toFixed(4); 
                 const geolocationLink = `https://www.google.com/maps?q=${lat},${lon}`;
                 
-                // Mostrar la URL en consola o con un alert para ver si es correcta
                 console.log("Generated Google Maps URL: ", geolocationLink);
-                alert("Generated Google Maps URL: " + geolocationLink); // Esto es temporal para ver la URL
+                alert("Generated Google Maps URL: " + geolocationLink);
                 
-                // Asignar la URL generada al campo de geolocalización
                 geoLocationField.value = geolocationLink;
                 geoLocationField.classList.add('filled'); 
                 
                 alert("Geolocalización obtenida correctamente.");
-                checkFormCompletion(); // Verificar si el formulario está completo
+                checkFormCompletion(); 
             },
             (error) => {
                 switch (error.code) {
@@ -74,7 +72,6 @@ function getGeolocation() {
         alert("Tu navegador no soporta geolocalización.");
     }
 }
-
 
 // Verificar la completitud del formulario
 const formFields = ['fullname', 'phone', 'serviceDate', 'serviceTime', 'location', 'destination', 'details', 'geolocation'];
@@ -138,7 +135,7 @@ function convertirHora12Horas(horaISO) {
     return horas + ':' + minutos + ' ' + periodo;
 }
 
-// Envío del formulario usando AJAX
+// Envío del formulario usando AJAX y EmailJS
 document.getElementById('serviceForm').addEventListener('submit', function (e) {
     e.preventDefault();
     const formData = new FormData(this);
@@ -155,6 +152,7 @@ document.getElementById('serviceForm').addEventListener('submit', function (e) {
     formData.set('serviceDate', fechaLarga);
     formData.set('serviceTime', hora12);
     
+    // Envío del formulario
     fetch(this.action, {
         method: 'POST',
         body: formData
@@ -162,6 +160,26 @@ document.getElementById('serviceForm').addEventListener('submit', function (e) {
     .then(response => response.text())
     .then(result => {
         alert("Formulario enviado correctamente.");
+
+// Envío del correo electrónico con EmailJS
+emailjs.send("service_5mqrv4f", "template_s5xe1ad", {
+    fullname: formData.get('fullname'),
+    phone: formData.get('phone'),
+    serviceDate: fechaLarga,
+    serviceTime: hora12,
+    location: formData.get('location'),
+    destination: formData.get('destination'),
+    details: formData.get('details'),
+    geolocation: formData.get('geolocation'),
+    to_email: "reyesgama@gmail.com" // Dirección de destino del correo
+})
+.then(function(response) {
+    console.log('Correo enviado con éxito', response.status, response.text);
+}, function(error) {
+    console.error('Error al enviar el correo:', error);
+});
+
+        // Redirigir después de enviar
         setTimeout(function() {
             window.location.href = 'https://sites.google.com/view/rtaxi-coral/inicio';
         }, 2000);

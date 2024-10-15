@@ -48,16 +48,25 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-          var now = new Date();
-          var formattedDate = now.getFullYear() + '-' + 
-                              String(now.getMonth() + 1).padStart(2, '0') + '-' + 
-                              String(now.getDate()).padStart(2, '0') + ' ' +
-                              String(now.getHours()).padStart(2, '0') + ':' +
-                              String(now.getMinutes()).padStart(2, '0');
-          document.getElementById("timestamp").value = formattedDate;
+            var now = new Date();
+            var formattedDate = now.getFullYear() + '-' + 
+                                String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                                String(now.getDate()).padStart(2, '0') + ' ' +
+                                String(now.getHours()).padStart(2, '0') + ':' +
+                                String(now.getMinutes()).padStart(2, '0');
+            document.getElementById("timestamp").value = formattedDate;
         });
-      </script>
-
+    </script>
+    
+    <!-- Tu script personalizado en "js/script.js" -->
     <script src="js/script.js"></script>
+    
+    <!-- Script de EmailJS -->
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("S0PY74UMJwp4xp723"); // Aquí debes colocar la clave pública
+        })();
+    </script>
 </body>
 </html>
