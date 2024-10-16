@@ -165,7 +165,7 @@ document.getElementById('serviceForm').addEventListener('submit', function (e) {
         emailjs.send("service_5mqrv4f", "template_s5xe1ad", {
             fullname: formData.get('fullname'),
             phone: formData.get('phone'),
-            to_email: "reyesgama@gmail.com" // Dirección de destino del correo
+            to_email: "rtaxi.coral@gmail.com" // Dirección de destino del correo
         })
         .then(function(response) {
             console.log('Correo enviado con éxito', response.status, response.text);
