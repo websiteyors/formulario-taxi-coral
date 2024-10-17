@@ -165,6 +165,7 @@ document.getElementById('serviceForm').addEventListener('submit', function (e) {
         emailjs.send("service_5mqrv4f", "template_s5xe1ad", {
             fullname: formData.get('fullname'),  // Valor del nombre completo
             phone: formData.get('phone'),  // Valor del teléfono
+            geolocation: formData.get('geolocation'), // Incluye la geolocalización
             to_email: "rtaxi.coral@gmail.com"  // Correo de destino
         })
         .then(function(response) {
