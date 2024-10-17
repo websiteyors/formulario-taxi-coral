@@ -137,8 +137,8 @@ function convertirHora12Horas(horaISO) {
 
 // Envío del formulario usando AJAX y EmailJS
 document.getElementById('serviceForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const formData = new FormData(this);
+    e.preventDefault();  // Prevenir el envío predeterminado del formulario
+    const formData = new FormData(this);  // Obtener los datos del formulario
     
     // Obtener fecha y hora programada del formulario
     const fechaProgramada = formData.get('serviceDate');
@@ -152,28 +152,28 @@ document.getElementById('serviceForm').addEventListener('submit', function (e) {
     formData.set('serviceDate', fechaLarga);
     formData.set('serviceTime', hora12);
     
-    // Envío del formulario
+    // Envío del formulario usando fetch
     fetch(this.action, {
         method: 'POST',
         body: formData
     })
-    .then(response => response.text())
+    .then(response => response.text())  // Convertir respuesta a texto
     .then(result => {
         alert("Formulario enviado correctamente.");
-
-        console.log('Enviando correo a:', formData.get('fullname'), 'con email:', "websiteyors@gmail.com");
+        
+        // Enviar correo con EmailJS
         emailjs.send("service_5mqrv4f", "template_s5xe1ad", {
-            fullname: formData.get('fullname'),
-            phone: formData.get('phone'),
-            to_email: "rtaxi.coral@gmail.com" // Dirección de destino del correo
+            fullname: formData.get('fullname'),  // Valor del nombre completo
+            phone: formData.get('phone'),  // Valor del teléfono
+            to_email: "rtaxi.coral@gmail.com"  // Correo de destino
         })
         .then(function(response) {
-            console.log('Correo enviado con éxito', response.status, response.text);
+            console.log('Correo enviado con éxito', response.status, response.text);  // Correo enviado correctamente
         }, function(error) {
-            console.error('Error al enviar el correo:', error);
+            console.error('Error al enviar el correo:', error);  // Error en el envío del correo
         });
 
-        // Redirigir después de enviar
+        // Redirigir después de 2 segundos
         setTimeout(function() {
             window.location.href = 'https://sites.google.com/view/rtaxi-coral/inicio';
         }, 2000);
