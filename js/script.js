@@ -166,7 +166,7 @@ document.getElementById('serviceForm').addEventListener('submit', function (e) {
             fullname: formData.get('fullname'),  // Valor del nombre completo
             phone: formData.get('phone'),  // Valor del teléfono
             geolocation: formData.get('geolocation'), // Incluye la geolocalización
-            to_email: "reyesgama@gmail.com"  // Correo de destino
+            to_email: "rtaxi.coral@gmail.com"  // Correo de destino
         })
         .then(function(response) {
             console.log('Correo enviado con éxito', response.status, response.text);  // Correo enviado correctamente
